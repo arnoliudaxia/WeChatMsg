@@ -1,0 +1,6 @@
+
+
+
+set PYTHONPATH=C:\Users\14564\Downloads\WeChatMsg 
+ uv run 1-decrypt.py
+ uv run 2-contact.py > 联系人列表.txt

@@ -10,6 +10,7 @@
 """
 
 import time
+import argparse
 from multiprocessing import freeze_support
 
 from exporter.config import FileType
@@ -17,13 +18,13 @@ from exporter import HtmlExporter, TxtExporter, AiTxtExporter, DocxExporter, Mar
 from wxManager import DatabaseConnection, MessageType
 
 
-def export():
+def export(wxid):
     st = time.time()
 
-    db_dir = ''  # 解析后的数据库路径，例如：./db_storage
+    db_dir = r'C:\Users\14564\Downloads\WeChatMsg\example\wxid_wbew2odtd20t11\db_storage'  # 第一步解析后的数据库路径，例如：./wxid_xxxx/db_storage
+    # db_dir = ''  # 解析后的数据库路径，例如：./db_storage
     db_version = 4  # 数据库版本，4 or 3
 
-    wxid = 'wxid_00112233'  # 要导出好友的wxid
     output_dir = './data/'  # 输出文件夹
 
     conn = DatabaseConnection(db_dir, db_version)  # 创建数据库连接
@@ -117,8 +118,16 @@ def batch_export_by_fmt():
     print(f'耗时：{et - st:.2f}s')
 
 
-if __name__ == '__main__':
+def main():
+    parser = argparse.ArgumentParser(description='导出微信聊天记录')
+    parser.add_argument('wxid', help='要导出好友的wxid')
+    args = parser.parse_args()
+    
     freeze_support()
-    export()
+    export(args.wxid)
     # batch_export()
     # batch_export_by_fmt()
+
+
+if __name__ == '__main__':
+    main()
